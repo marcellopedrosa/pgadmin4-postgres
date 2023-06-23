@@ -1,12 +1,12 @@
 version: '3'
 
 volumes:
- postgres_data: #docker volumen prune -- try clean old database/login/password created before
+ postgres_data: #"docker volume prune" -- try clean old database/login/password created before
   driver: local
 
 networks:
  postgres-mytest-network:
-  external: true #docker network create postgres-mytest-network
+  external: true #"docker network create postgres-mytest-network" -- try create network before run compose
   driver: bridge
 
 services:
