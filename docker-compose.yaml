@@ -10,12 +10,12 @@ networks:
   driver: bridge
 
 services:
-  db_myservice:
+  myservice_db:
     image: postgres:alpine3.18
     environment:
-      POSTGRES_DB: my_name_db
-      POSTGRES_USER: user1
-      POSTGRES_PASSWORD: pass1
+      POSTGRES_DB: myname_db
+      POSTGRES_USER: test
+      POSTGRES_PASSWORD: test
     ports:
       - "15432:5432"
     volumes:
@@ -31,6 +31,6 @@ services:
     ports:
       - "16543:80"
     depends_on:
-      - db_myservice
+      - myservice_db
     networks:
       - postgres-mytest-network
