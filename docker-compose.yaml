@@ -1,0 +1,36 @@
+version: '3'
+
+volumes:
+ postgres_data:
+  driver: local
+
+networks:
+ postgres-mytest-network:
+  external: true #docker network create postgres-mytest-network
+  driver: bridge
+
+services:
+  db_myservice:
+    image: postgres:alpine3.18
+    environment:
+      POSTGRES_DB: my_name_db
+      POSTGRES_USER: user1
+      POSTGRES_PASSWORD: pass1
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data 
+    networks:
+      - postgres-mytest-network
+      
+  teste-pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "123456!"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db_myservice
+    networks:
+      - postgres-mytest-network
